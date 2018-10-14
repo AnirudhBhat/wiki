@@ -38,7 +38,7 @@ ext {
     daggerVersion  = '2.11'
     glideVersion = '4.6.1'
     junitVersion = '4.12'
-    lifecycleVersion = '1.0.0'
+    lifecycleVersion = '1.1.1'
     coroutinesVersion = '0.26.1'
 }
 

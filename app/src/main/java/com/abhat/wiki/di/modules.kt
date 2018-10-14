@@ -1,7 +1,10 @@
 package com.abhat.wiki.di
 
+import com.abhat.wiki.data.repository.WikiRepository
 import com.abhat.wiki.data.repository.WikiRepositoryImpl
 import com.abhat.wiki.data.service.WikiApi
+import com.abhat.wiki.presentation.WikiViewModel
+import com.abhat.wiki.presentation.WikiViewModelFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,6 +18,8 @@ val appModule = module {
     single { provideRetrofit(get()) }
     factory { provideWikiApi(get()) }
     factory { provideWikiRepository(get()) }
+    factory(override = true) { provideWikiViewModelFactory(get()) }
+    factory { provideWikiViewModel(get()) }
 }
 
 private fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
@@ -33,6 +38,10 @@ private fun provideOkHttpClient(): OkHttpClient {
             .readTimeout(10, TimeUnit.SECONDS)
             .build()
 }
+
+private fun provideWikiViewModelFactory(wikiRepository: WikiRepositoryImpl) = WikiViewModelFactory(wikiRepository)
+
+private fun provideWikiViewModel(wikiRepository: WikiRepositoryImpl) = WikiViewModel(wikiRepository)
 
 private fun provideWikiApi(retrofit: Retrofit) = retrofit.create(WikiApi::class.java)
 

@@ -35,7 +35,8 @@
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="270dp" />
+                android:layout_height="270dp"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/wikiText"
