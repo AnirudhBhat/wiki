@@ -32,10 +32,15 @@ class WikiViewModel(val wikiRepository: WikiRepository): ViewModel() {
 
     fun cleanSearchTerm(query: String): String {
         var querySplit = query.split(" ")
-        if (querySplit.size > 1) {
-            return querySplit[0].capitalize() + " " + querySplit[1].capitalize()
+        var cleanedSearchTerm: StringBuilder = java.lang.StringBuilder()
+        querySplit.forEach {
+            cleanedSearchTerm.append(it.capitalize())
+            cleanedSearchTerm.append(" ")
         }
-        return query.capitalize()
+        /*if (querySplit.size > 1) {
+            return querySplit[0].capitalize() + " " + querySplit[1].capitalize()
+        }*/
+        return cleanedSearchTerm.toString().trim()
     }
 
     fun getWikiResult(): MutableLiveData<Wiki> {
