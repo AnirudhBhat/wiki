@@ -10,6 +10,11 @@ import com.abhat.wiki.data.model.Wiki
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +49,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun processResponse(wiki: Wiki?) {
+        val fadeIn = AlphaAnimation(0f, 1f)
+        fadeIn.interpolator = DecelerateInterpolator()
+        fadeIn.duration = 1000
+        wikiText.animation = fadeIn
         wikiText.text = wiki?.extract
         Glide.with(this).load(wiki?.originalimage?.source).into(image)
     }
